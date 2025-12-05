@@ -1,3 +1,14 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url('assets/fonts/PC-9900-V2.TTF') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'pokemon';
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -17,7 +28,6 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-    background: black;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -63,6 +73,79 @@ table {
     display: none;
 }
 
-.img2 {
-    width: 80%;
+.blur {
+    filter: blur(1.5rem);
+    transition: filter 0.3s ease;
+}
+
+.textbox {
+    width: 840px;
+    height: 300px;
+    background-image:  url("assets/imgs/txt_box2.png");
+    background-position: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+#question {
+    margin: 85px 0 0 0;
+    font-size: 36px;
+}
+
+img {
+  background-color: transparent;
+}
+
+html {
+    background-color: black;
+}
+
+#seta {
+    width: 80px;
+    margin: 10px 65px;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.flutuando {
+    animation: flutuar 3s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);  /* Vai para cima */
+    }
+    100% {
+        transform: translateY(0);  /* Retorna à posição inicial */
+    }
+}
+
+#questionInput {
+    width: 250px;
+    height: 30px;
+    margin-top: 20px;
+    font-size: 23px;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
