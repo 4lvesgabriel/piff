@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'pokemon';
-    src: url('assets/fonts/PC-9900-V2.TTF') format('ttf');
+    src: url('assets/fonts/PC-9900-V2.TTF') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
-* {
+.textbox, input {
     font-family: 'pokemon';
 }
 
