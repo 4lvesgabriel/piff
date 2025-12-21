@@ -5,147 +5,223 @@
     font-style: normal;
 }
 
-.textbox, input {
-    font-family: 'pokemon';
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+:root {
+    --blur-intensity: 1.5rem;
+    --transition-speed: 0.3s;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+
+html {
+    background-color: black;
+    height: 100%;
 }
+
 body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    font-family: 'pokemon', sans-serif;
+    line-height: 1;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
+/* Utility Classes */
 .flex {
     display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    flex-direction: column;
 }
 
 .w-100 {
     width: 100%;
 }
 
-.j-center {
-    justify-content: center;
+.text-center {
+    text-align: center;
 }
 
-.c-main {
-    margin: 24px 0;
-}
-
-.dnone {
+.d-none {
     display: none;
 }
 
-.blur {
-    filter: blur(1.5rem);
-    transition: filter 0.3s ease;
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 0;
+}
+
+.video-container video {
+    margin-top: 50px;
+    width: 100%;
+    height: 60%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.video-container video.blur {
+    filter: blur(var(--blur-intensity));
+    transition: filter var(--transition-speed) ease;
+}
+
+.textbox-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .textbox {
-    width: 840px;
+    width: 100%;
+    max-width: 840px;
     height: 300px;
-    background-image:  url("assets/imgs/txt_box2.png");
-    background-position: 0px;
+    background: url("assets/imgs/txt_box2.png") no-repeat center;
+    background-size: contain;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    position: relative;
 }
 
 #question {
-    margin: 85px 0 0 0;
-    font-size: 36px;
+    margin: 85px 0 25px 0;
+    font-size: 1.5rem;
+    color: #000;
+    text-align: center;
 }
 
-img {
-  background-color: transparent;
-}
-
-html {
-    background-color: black;
-}
-
-#seta {
-    width: 80px;
-    margin: 10px 65px;
-}
-
-.row {
-    width: 100%;
+.form-container {
     display: flex;
-    justify-content: end;
-}
-
-.flutuando {
-    animation: flutuar 3s ease-in-out infinite;
-}
-
-@keyframes flutuar {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);  /* Vai para cima */
-    }
-    100% {
-        transform: translateY(0);  /* Retorna à posição inicial */
-    }
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
 }
 
 #questionInput {
     width: 250px;
-    height: 30px;
-    margin-top: 20px;
-    font-size: 23px;
+    height: 40px;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    border: 2px solid #000;
+    background: rgba(255, 255, 255, 0.9);
+    font-family: 'pokemon', sans-serif;
 }
 
-.form {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-button {
+.btn-submit {
     background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-right: 150px;
+}
+
+#seta {
+    width: 80px;
+    animation: flutuar 3s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@media (max-width: 1024px) {
+    .textbox {
+        max-width: 700px;
+        height: 280px;
+    }
+    
+    #question {
+        font-size: 1.8rem;
+        margin-top: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .textbox {
+        max-width: 90%;
+        height: 250px;
+        padding: 15px;
+    }
+    
+    #question {
+        font-size: 1.5rem;
+        margin-top: 60px;
+        margin-bottom: 20px;
+    }
+    
+    #questionInput {
+        width: 200px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .btn-submit {
+        margin-right: 40px;
+    }
+    
+    #seta {
+        width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .textbox {
+        height: 220px;
+        padding: 10px;
+    }
+    
+    #question {
+        font-size: 1.2rem;
+        margin-top: 50px;
+        margin-bottom: 15px;
+    }
+    
+    #questionInput {
+        width: 180px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-submit {
+        margin-right: 30px;
+    }
+    
+    #seta {
+        width: 50px;
+    }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .textbox {
+        height: 200px;
+        max-width: 600px;
+    }
+    
+    #question {
+        margin-top: 40px;
+        font-size: 1.3rem;
+    }
 }

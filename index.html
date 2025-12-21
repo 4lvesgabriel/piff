@@ -1,34 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O QUE VOCÊ VÊ NA SUA ESSÊNCIA</title>
-    <!-- imports -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Uma experiência interativa sobre essência">
+    <title>O QUE VOCÊ VÊ NA SUA ESSÊNCIA?</title>
+    
+    <!-- Preload important resources -->
+    <link rel="preload" href="assets/fonts/PC-9900-V2.TTF" as="font" type="font/ttf" crossorigin>
+    
+    <!-- Styles & Scripts -->
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container flex j-center c-main">
-        <div class="textbox">
-            <div class="form">
-                <label for="questionInput" id="question">O QUE VOCÊ VÊ NA SUA ESSÊNCIA?</label>
-                <input type="text" id="questionInput" name="question">
+    <!-- Background Video -->
+    <div class="video-container">
+        <video id="video-intro" muted playsinline webkit-playsinline preload="auto">
+            <source src="assets/videos/PIFF_INTRO.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+
+        <video id="video-loop" muted playsinline webkit-playsinline loop preload="auto">
+            <source src="assets/videos/PIFF_LOOP.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+    </div>
+
+    <!-- Textbox Container -->
+    <div class="textbox-container flex-center">
+        <div class="textbox flex-column">
+            <div class="form-container">
+                <h1 id="question" class="text-center">O QUE VOCÊ VÊ NA SUA ESSÊNCIA?</h1>
+                <input type="text" id="questionInput" name="question" 
+                       placeholder="Digite sua resposta..." 
+                       aria-label="Sua resposta sobre essência" 
+                       maxlength="100">
             </div>
-            <div class="row">
-                <button onclick="alert('clicou')"><img src="assets/imgs/seta.png" class="flutuando" id="seta" alt=""></button>
-            </div>
+            <button class="btn-submit" aria-label="Enviar resposta">
+                <img src="assets/imgs/seta.png" id="seta" alt="Seta para enviar">
+            </button>
         </div>
     </div>
 
-    <div class="container flex j-center c-main">
-        <div class="gif">
-            <img src="assets/imgs/PIFF01.gif" id="piff1" alt="">
-        </div>
-        <div class="img2">
-            <img src="assets/imgs/PIFF02.png" id="piff2" alt="">
-        </div>
+    <!-- Background Audio -->
+    <audio id="background-audio" loop preload="auto">
+        <source src="assets/audio/AUDIO001.wav" type="audio/wav">
+        <source src="assets/audio/AUDIO001.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <!-- Loading State (optional) -->
+    <div class="loading-screen flex-center" style="display: none;">
+        <p>Carregando experiência...</p>
     </div>
 </body>
 </html>
