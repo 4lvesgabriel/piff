@@ -1,4 +1,17 @@
 $(document).ready(function() {
+    const firebaseConfig = {
+    apiKey: "AIzaSyBRbR0KP88QrnKL5mgUBXRTGuaetKKuYZQ",
+    authDomain: "teste-56051.firebaseapp.com",
+    projectId: "teste-56051",
+    storageBucket: "teste-56051.firebasestorage.app",
+    messagingSenderId: "197708078650",
+    appId: "1:197708078650:web:a275f73a411f3d8c159f03"
+    };
+
+    // Initialize Firebase
+    // firebase.initializeApp(firebaseConfig);
+    // const database = firebase.database();
+
     $('.textbox-container').hide();
     $('.video-container').hide();
     
@@ -149,6 +162,36 @@ $(document).ready(function() {
             });
         });
     }
+
+    function startMessageListener() {
+        const messagesRef = database.ref('messages');
+        
+        // This fires once for initial data, and again whenever new data is added[citation:4]
+        messagesRef.orderByChild('timestamp').on('value', (snapshot) => {
+            // Clear existing displayed messages (optional, or let them accumulate)
+            // $('#messages-background').empty();
+            
+            snapshot.forEach((childSnapshot) => {
+                const message = childSnapshot.val();
+                createFloatingMessage(message.text);
+            });
+        });
+    }
+
+    function createFloatingMessage(text) {
+        const $message = $('<div class="floating-message"></div>').text(text);
+        $('#messages-background').append($message);
+        
+        // Randomize vertical position and animation delay
+        const topPos = Math.random() * 80 + 5; // Between 5% and 85%
+        const delay = Math.random() * 5; // Up to 5 seconds delay
+        
+        $message.css({
+            top: topPos + '%',
+            animationDelay: delay + 's'
+        });
+    }
+
     
     $videoIntro.on('ended', function() {
         $videoIntro.hide();
@@ -165,6 +208,8 @@ $(document).ready(function() {
         setTimeout(() => {
             $('#questionInput').focus();
         }, 1000);
+
+        startMessageListener();
     }
     
     $('.btn-submit').on('click', function(e) {
@@ -181,8 +226,20 @@ $(document).ready(function() {
     function handleSubmission() {
         const answer = $('#questionInput').val().trim();
         if (answer) {
-            alert(`Sua resposta: ${answer}`);
-            $('#questionInput').val('');
+            // Save to Firebase Realtime Database
+            const messagesRef = database.ref('messages'); // 'messages' is your data path
+            messagesRef.push({
+                text: answer,
+                timestamp: firebase.database.ServerValue.TIMESTAMP // Adds a server timestamp
+            }).then(() => {
+                console.log("Message saved!");
+                $('#questionInput').val(''); // Clear the input
+            }).catch((error) => {
+                console.error("Error saving message: ", error);
+            });
+            
+            // Optional: Keep or remove the old alert
+            // alert(`Sua resposta: ${answer}`);
             
         } else {
             alert('Por favor, digite sua resposta.');
