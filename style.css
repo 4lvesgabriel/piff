@@ -81,11 +81,6 @@ body {
     pointer-events: none;
 }
 
-.video-container video.blur {
-    filter: blur(var(--blur-intensity));
-    transition: filter var(--transition-speed) ease;
-}
-
 .textbox-container {
     position: relative;
     z-index: 10;
@@ -100,35 +95,30 @@ body {
 }
 
 .question-top {
-    color: var(--yellow-color);
-    font-size: 2.5rem;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 
-        2px 2px 0 var(--dark-blue-color),
-        -2px -2px 0 var(--dark-blue-color),
-        2px -2px 0 var(--dark-blue-color),
-        -2px 2px 0 var(--dark-blue-color),
-        0 0 20px rgba(255, 215, 0, 0.5);
+    color: #fff;
     margin-bottom: 40px;
     padding: 15px 30px;
-    border: 5px solid var(--blue-color);
-    border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.7);
-    box-shadow: 0 0 30px rgba(30, 144, 255, 0.5);
     position: relative;
     z-index: 20;
+    /* text-shadow: 0 2px 0 #007bff; */
     animation: glow 2s ease-in-out infinite alternate;
+}
+
+#question-title-1 {
+    font-size: 3rem;
+}
+
+#question-title-2 {
+    font-size: 3.5rem;
 }
 
 @keyframes glow {
     from {
-        box-shadow: 0 0 30px rgba(30, 144, 255, 0.5);
+        text-shadow: 0 0 10px rgba(13, 99, 186, 0.782);
     }
     to {
-        box-shadow: 0 0 50px rgba(30, 144, 255, 0.8),
-                    0 0 60px rgba(30, 144, 255, 0.4);
+        text-shadow: 0 0 30px rgba(30, 144, 255, 0.8),
+                    0 0 40px rgba(30, 144, 255, 0.4);
     }
 }
 
@@ -209,19 +199,34 @@ body {
 }
 
 .start-content {
-    text-align: center;
-    padding: 20px;
-    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
     margin: 0 auto;
 }
 
-.start-content h1 {
-    color: white;
-    font-size: 2.5rem;
-    margin-bottom: 60px;
-    text-transform: uppercase;
+.start-content > div:first-child h1 {
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    font-size: 2.4rem;
+    color: white;
+    margin: 0;
+    padding: 10px 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+
+    text-shadow: 0 0 5px #fff;
+}
+
+.start-content > div:nth-child(2) h1 {
+    color: white;
+    font-size: 5.4rem;
+    margin: 0;
+    padding: 20px 0;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-shadow: 0 0 5px #fff;
 }
 
 .btn-start {
@@ -238,6 +243,7 @@ body {
     margin-bottom: 30px;
     position: relative;
     overflow: hidden;
+    text-shadow: 0 0 10px #fff;
 }
 
 .btn-start:hover, .btn-start:active {
@@ -312,6 +318,28 @@ body {
     font-family: 'pokemon', sans-serif;
 }
 
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    background: rgba(0, 0, 0, 0);
+    z-index: 5; 
+    pointer-events: none; 
+    opacity: 0;
+    transition: backdrop-filter 0.5s ease, opacity 0.5s ease;
+}
+
+.blur-overlay.active {
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 1;
+}
+
 @keyframes pulse {
     0%, 100% {
         opacity: 0.7;
@@ -330,23 +358,59 @@ body {
     }
 }
 
+@media (width >= 2560px) {
+    .textbox {
+        max-width: 1280px !important;
+        background: url("assets/imgs/txt_box2.png") no-repeat center !important;
+        margin: 10%;
+        transform: scale(2);
+    }
+
+    .textbox-container {
+        margin-top: 15% !important;
+    }
+
+    #question-title-1 {
+        font-size: 7rem !important;
+    }
+
+    #question-title-2 {
+        font-size: 9.5rem !important;
+    }
+}
+
 @media (min-width: 1440px) {
     .btn-submit {
         position: absolute;
         left: 48% !important;
     }
+
+    #question-title-1 {
+        font-size: 4rem;
+    }
+
+    #question-title-2 {
+        font-size: 5rem;
+    }
+
 }
 
 @media (min-width: 1024px) {
-    .question-top {
+
+    .textbox-container {
+        margin-top: 5rem;
+    }
+
+    .question-title-1 {
         font-size: 2.2rem;
         padding: 12px 25px;
-        margin-bottom: 30px;
     }
     
     .textbox {
         max-width: 700px;
         height: 450px !important;
+        background: url("assets/imgs/txt_box2.png") no-repeat center;
+        background-size: fill !important;
     }
     
     #questionInput {
@@ -445,6 +509,15 @@ body {
     .btn-submit {
         margin-bottom: 100%;
     }
+
+    #question-title-1 {
+        font-size: 1.8rem;
+    }
+
+    #question-title-2 {
+        font-size: 2rem;
+    }
+    
 }
 
 @media (max-height: 600px) and (orientation: landscape) {
