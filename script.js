@@ -1,16 +1,16 @@
 $(document).ready(function() {
     const firebaseConfig = {
-    apiKey: "AIzaSyBRbR0KP88QrnKL5mgUBXRTGuaetKKuYZQ",
-    authDomain: "teste-56051.firebaseapp.com",
-    projectId: "teste-56051",
-    storageBucket: "teste-56051.firebasestorage.app",
-    messagingSenderId: "197708078650",
-    appId: "1:197708078650:web:a275f73a411f3d8c159f03"
+        apiKey: API_CONFIG.API_KEY,
+        authDomain: API_CONFIG.AUTH_DOMAIN,
+        projectId: API_CONFIG.PROJECT_ID,
+        storageBucket: API_CONFIG.STORAGE_BUCKET,
+        messagingSenderId: API_CONFIG.MESSAGING_SENDER_ID,
+        appId: API_CONFIG.APP_ID
     };
 
     // Initialize Firebase
-    // firebase.initializeApp(firebaseConfig);
-    // const database = firebase.database();
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
 
     $('.textbox-container').hide();
     $('.video-container').hide();
