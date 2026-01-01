@@ -8,7 +8,6 @@ $(document).ready(function() {
         appId: API_CONFIG.APP_ID
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
@@ -167,30 +166,133 @@ $(document).ready(function() {
     function startMessageListener() {
         const messagesRef = database.ref('messages');
         
-        // This fires once for initial data, and again whenever new data is added[citation:4]
-        messagesRef.orderByChild('timestamp').on('value', (snapshot) => {
-            // Clear existing displayed messages (optional, or let them accumulate)
-            // $('#messages-background').empty();
+        $('#messages-background').empty();
+        
+        messagesRef.orderByChild('timestamp').limitToLast(20).once('value', (snapshot) => {
+            let delay = 0;
+            const messagesArray = [];
             
             snapshot.forEach((childSnapshot) => {
                 const message = childSnapshot.val();
-                createFloatingMessage(message.text);
+                messagesArray.push(message);
             });
+            
+            messagesArray.forEach((message, index) => {
+                setTimeout(() => {
+                    createFloatingMessage(message.text);
+                }, index * 300);
+            });
+            
+            setTimeout(() => {
+                const currentMessages = $('.floating-message').length;
+                if (currentMessages < 10) {
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            if (messagesArray.length > 0) {
+                                const randomIndex = Math.floor(Math.random() * messagesArray.length);
+                                createFloatingMessage(messagesArray[randomIndex].text);
+                            }
+                        }, i * 500);
+                    }
+                }
+            }, 2000);
+        });
+        
+        messagesRef.orderByChild('timestamp').limitToLast(1).on('child_added', (snapshot) => {
+            const message = snapshot.val();
+            
+            setTimeout(() => {
+                createFloatingMessage(message.text);
+                
+                setTimeout(() => {
+                    createFloatingMessage(message.text);
+                }, 2000);
+            }, 100);
         });
     }
 
     function createFloatingMessage(text) {
-        const $message = $('<div class="floating-message"></div>').text(text);
-        $('#messages-background').append($message);
+        const message = document.createElement('div');
+        message.className = 'floating-message';
+        message.textContent = text;
+        message.style.position = 'absolute';
         
-        // Randomize vertical position and animation delay
-        const topPos = Math.random() * 80 + 5; // Between 5% and 85%
-        const delay = Math.random() * 5; // Up to 5 seconds delay
+        const topPos = Math.random() * 80 + 5; 
         
-        $message.css({
-            top: topPos + '%',
-            animationDelay: delay + 's'
-        });
+        const direction = Math.random() > 0.5 ? 'right' : 'left';
+        
+        const useDrift = Math.random() > 0.5;
+        
+        let animationName;
+        if (direction === 'right') {
+            animationName = useDrift ? 'floatFromRightDrift' : 'floatFromRight';
+        } else {
+            animationName = useDrift ? 'floatFromLeftDrift' : 'floatFromLeft';
+        }
+        
+        const duration = 20 + Math.random() * 30;
+        
+        const fontSize = 1 + Math.random() * 1.5; 
+        
+        const maxOpacity = 0.8 + Math.random() * 0.2;
+        
+        message.style.top = topPos + '%';
+        message.style.left = direction === 'right' ? '100vw' : '-100px';
+        message.style.right = direction === 'left' ? '100vw' : 'auto';
+        message.style.opacity = '0'; 
+        message.style.fontSize = fontSize + 'rem';
+        message.style.color = 'white';
+        message.style.textShadow = '2px 2px 5px rgba(0,0,0,0.9)';
+        message.style.whiteSpace = 'nowrap';
+        message.style.fontFamily = "'pokemon', sans-serif";
+        message.style.animation = `${animationName} ${duration}s linear infinite`;
+        message.style.animationTimingFunction = 'linear';
+        message.style.fontWeight = 'bold';
+        message.style.letterSpacing = '1px'; 
+        
+        document.getElementById('messages-background').appendChild(message);
+        
+        void message.offsetWidth;
+        
+        const messageId = Date.now() + Math.random();
+        message.dataset.messageId = messageId;
+        
+        const allMessages = document.querySelectorAll('.floating-message');
+        const MAX_MESSAGES = 25; 
+        
+        if (allMessages.length > MAX_MESSAGES) {
+            const oldestMessage = allMessages[0];
+            if (oldestMessage.parentNode) {
+                oldestMessage.parentNode.removeChild(oldestMessage);
+            }
+        }
+        
+        setTimeout(() => {
+            message.style.opacity = maxOpacity;
+        }, 100);
+        
+        return message;
+    }
+
+    function setupMessageCleanup() {
+        setInterval(() => {
+            const allMessages = document.querySelectorAll('.floating-message');
+            const MAX_MESSAGES_AGE = 10 * 60 * 1000; 
+            
+            allMessages.forEach((message) => {
+                const messageId = message.dataset.messageId;
+                if (messageId) {
+                    const messageTime = parseInt(messageId);
+                    const currentTime = Date.now();
+                    
+                    if (currentTime - messageTime > MAX_MESSAGES_AGE) {
+                        if (message.parentNode) {
+                            message.parentNode.removeChild(message);
+                        }
+                    }
+                }
+            });
+        }, 60000);
     }
 
 
@@ -225,6 +327,8 @@ $(document).ready(function() {
         
         setTimeout(() => {
             $('#questionInput').focus();
+            startMessageListener();
+            setupMessageCleanup();
         }, 1000);
 
         startMessageListener();
@@ -244,20 +348,16 @@ $(document).ready(function() {
     function handleSubmission() {
         const answer = $('#questionInput').val().trim();
         if (answer) {
-            // Save to Firebase Realtime Database
-            const messagesRef = database.ref('messages'); // 'messages' is your data path
+            const messagesRef = database.ref('messages');
             messagesRef.push({
                 text: answer,
-                timestamp: firebase.database.ServerValue.TIMESTAMP // Adds a server timestamp
+                timestamp: firebase.database.ServerValue.TIMESTAMP 
             }).then(() => {
                 console.log("Message saved!");
-                $('#questionInput').val(''); // Clear the input
+                $('#questionInput').val('');
             }).catch((error) => {
                 console.error("Error saving message: ", error);
             });
-            
-            // Optional: Keep or remove the old alert
-            // alert(`Sua resposta: ${answer}`);
             
         } else {
             alert('Por favor, digite sua resposta.');
