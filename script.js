@@ -21,6 +21,7 @@ $(document).ready(function() {
     const $textboxContainer = $('.textbox-container');
     const $startScreen = $('#startScreen');
     const $videoContainer = $('.video-container');
+    const $blurOverlay = $('.blur-overlay');
     
     let audioUnlocked = false;
     
@@ -192,18 +193,35 @@ $(document).ready(function() {
         });
     }
 
+
+    let verificado = false;
+
+    $videoIntro.on('timeupdate', function() {
+        const video = this;
+        const porcentagem = (video.currentTime / video.duration) * 100;
+        
+        if (porcentagem >= 80 && !verificado) {
+            verificado = true;
+            showTextbox()
+        }
+
+        if(porcentagem < 80) {
+            verificado = false;
+        }
+    });
     
     $videoIntro.on('ended', function() {
         $videoIntro.hide();
         $videoLoop.show();
-        $videoLoop[0].play();
-        
-        setTimeout(showTextbox, 1500);
+        $videoLoop[0].play();        
     });
     
     function showTextbox() {
-        $videoLoop.addClass('blur');
-        $textboxContainer.fadeIn(800);
+        $blurOverlay.addClass('active');
+
+        setTimeout(() => {
+            $textboxContainer.fadeIn(800);
+        }, 300);
         
         setTimeout(() => {
             $('#questionInput').focus();
