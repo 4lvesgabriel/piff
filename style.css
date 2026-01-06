@@ -96,13 +96,11 @@ body {
 
 .question-top {
     color: #fff;
-    margin-bottom: 40px;
-    padding: 15px 30px;
     position: relative;
     z-index: 20;
     /* text-shadow: 0 2px 0 #007bff; */
     animation: glow 2s ease-in-out infinite alternate;
-}
+}   
 
 #question-title-1 {
     font-size: 3rem;
@@ -123,19 +121,13 @@ body {
 }
 
 .textbox {
-    width: 100%;
-    max-width: 840px;
-    height: 450px !important;
     background: url("assets/imgs/txt_box2.png") no-repeat center;
     background-size: contain;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     position: relative;
-    margin-top: 20px;
 }
 
 .form-container {
@@ -151,11 +143,6 @@ body {
 }
 
 #questionInput {
-    width: 80%;
-    max-width: 500px;
-    height: 60px;
-    font-size: 1.8rem;
-    padding: 0 20px;
     background: rgba(255, 255, 255, 0.95);
     font-family: 'pokemon', sans-serif;
     border-radius: 10px;
@@ -183,7 +170,7 @@ body {
 }
 
 #seta {
-    width: 100px;
+    width: 100%;
     animation: flutuar 3s ease-in-out infinite;
 }
 
@@ -215,7 +202,6 @@ body {
     padding: 10px 0;
     font-weight: 300;
     letter-spacing: 2px;
-
     text-shadow: 0 0 5px #fff;
 }
 
@@ -223,7 +209,7 @@ body {
     color: white;
     font-size: 5.4rem;
     margin: 0;
-    padding: 20px 0;
+    padding-bottom: 10px;
     font-weight: 700;
     letter-spacing: 3px;
     text-shadow: 0 0 5px #fff;
@@ -358,42 +344,265 @@ body {
     }
 }
 
-@media (width >= 2560px) {
-    .textbox {
-        max-width: 1280px !important;
-        background: url("assets/imgs/txt_box2.png") no-repeat center !important;
-        margin: 10%;
-        transform: scale(2);
+@media only screen and (max-width: 320px) {
+    .start-content {
+        width: 250px;
+    }
+
+    .start-content > div:first-child h1 {
+        font-size: 1rem;
+        padding: 10px 0;
+    }
+
+    .start-content > div:nth-child(2) h1 {
+        font-size: 2.4rem;
+        padding-bottom: 10px;
+    }
+    
+    .btn-start {
+        padding: 15px 20px;
+        font-size: 0.6rem;
+    }
+
+    .question-top {
+        padding: 0;
+        margin: 0;
+    }
+
+    #question-title-1 {
+        font-size: 1rem !important;
+    }
+
+    #question-title-2 {
+        font-size: 1.5rem !important;
+        padding: 10px 0;
     }
 
     .textbox-container {
-        margin-top: 15% !important;
+        justify-content: center;
     }
 
-    #question-title-1 {
-        font-size: 7rem !important;
+    .textbox {
+        height: 145px !important;
+        width: 100%;
+        padding: 0;
     }
 
-    #question-title-2 {
-        font-size: 9.5rem !important;
+    .form-container {
+        margin: 0;
+        gap: 0;
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
     }
-}
 
-@media (min-width: 1440px) {
+    #questionInput {
+        width: 80%;
+    }
+
+    #questionInput::placeholder {
+        font-size: 0.7rem;
+    }
+
     .btn-submit {
-        position: absolute;
-        left: 48% !important;
+        margin: 15px 40px 0px 0px;
+        width: 10px;
+        height: 10px;
+        align-self: flex-end;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 375px) {
+    .start-content {
+        width: 250px;
+    }
+
+    .start-content > div:first-child h1 {
+        font-size: 1.5rem;
+        padding: 10px 0;
+    }
+
+    .start-content > div:nth-child(2) h1 {
+        font-size: 2.4rem;
+        padding-bottom: 10px;
+    }
+    
+    .btn-start {
+        padding: 15px 20px;
+        font-size: 0.6rem;
+    }
+
+    .question-top {
+        padding: 0;
+        margin: 0;
     }
 
     #question-title-1 {
-        font-size: 4rem;
+        font-size: 1rem !important;
     }
 
     #question-title-2 {
-        font-size: 5rem;
+        font-size: 1.5rem !important;
+        padding: 10px 0;
     }
 
+    .textbox-container {
+        justify-content: center;
+    }
+
+    .textbox {
+        height: 145px !important;
+        width: 100%;
+        padding: 0;
+    }
+
+    .form-container {
+        margin: 0;
+        gap: 0;
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+    }
+
+    #questionInput {
+        width: 80%;
+    }
+
+    #questionInput::placeholder {
+        font-size: 0.7rem;
+    }
+
+    .btn-submit {
+        margin: 15px 40px 0px 0px;
+        width: 10px;
+        height: 10px;
+        align-self: flex-end;
+    }
 }
+
+/* @media (width > 375px) and (width <= 480px) {
+    .question-top {
+        font-size: 1.5rem;
+        padding: 8px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .textbox {
+        height: 200px !important;
+        padding: 10px;
+    }
+    
+    #questionInput {
+        width: 85%;
+        height: 25px;
+        font-size: 0.8rem;
+        padding: 0 10px;
+    }
+    
+    #questionInput::placeholder {
+        font-size: 1.1rem;
+    }
+    
+    .form-container {
+        margin-bottom: 5%;
+    }
+
+    .btn-submit {
+        margin-bottom: 100%;
+    }
+
+    #question-title-1 {
+        font-size: 1.8rem;
+    }
+
+    #question-title-2 {
+        font-size: 2rem;
+    }
+
+    .start-content {
+        width: 350px;
+    }
+
+    .start-content > div:first-child h1 {
+        font-size: 1.4rem;
+        padding: 10px 0;
+    }
+
+    .start-content > div:nth-child(2) h1 {
+        font-size: 3.4rem;
+        padding-bottom: 10px;
+    }
+    
+    .btn-start {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+} */
+
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .textbox-container {
+        padding-top: 20px;
+    }
+    
+    .question-top {
+        font-size: 1.8rem;
+        padding: 8px 15px;
+        margin-bottom: 15px;
+    }
+    
+    .textbox {
+        height: 180px !important;
+        max-width: 600px;
+        margin-top: 10px;
+    }
+    
+    /* #questionInput {
+        height: 45px;
+        font-size: 1.4rem;
+    } */
+}
+
+@media (min-width: 768px) {
+    .question-top {
+        font-size: 1.8rem;
+        padding: 10px 20px;
+        margin-bottom: 25px;
+    }
+    
+    .textbox {
+        max-width: 90%;
+        height: 300px !important;
+        padding: 15px;
+    }
+    
+    /* #questionInput {
+        width: 80%;
+        height: 50px;
+        font-size: 1.4rem;
+        padding: 0 15px;
+    } */
+    
+    #questionInput::placeholder {
+        font-size: 1.3rem;
+    }
+    
+    .form-container {
+        margin-bottom: 3%;
+    }
+
+    .btn-submit {
+        margin-bottom: 65%;
+    }
+
+    .start-content > div:nth-child(2) h1 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
 
 @media (min-width: 1024px) {
 
@@ -413,15 +622,11 @@ body {
         background-size: fill !important;
     }
     
-    #questionInput {
+    /* #questionInput {
         width: 75%;
         height: 55px;
         font-size: 1.6rem;
-    }
-
-    #seta {
-        width: 65px;
-    }
+    } */
     
     .form-container {
         justify-content: center;
@@ -433,112 +638,74 @@ body {
         left: 45%;
     }
 
+    .start-content > div:nth-child(2) h1 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
 }
 
-@media (min-width: 768px) {
-    .question-top {
-        font-size: 1.8rem;
-        padding: 10px 20px;
-        margin-bottom: 25px;
-        border-width: 4px;
-    }
-    
-    .textbox {
-        max-width: 90%;
-        height: 300px !important;
-        padding: 15px;
-    }
-    
-    #questionInput {
-        width: 80%;
-        height: 50px;
-        font-size: 1.4rem;
-        padding: 0 15px;
-    }
-    
-    #questionInput::placeholder {
-        font-size: 1.3rem;
-    }
-    
-    #seta {
-        width: 65px;
-    }
-    
-    .form-container {
-        margin-bottom: 3%;
-    }
-
+@media (min-width: 1440px) {
     .btn-submit {
-        margin-bottom: 65%;
-    }
-}
-
-@media (max-width: 480px) {
-    .question-top {
-        font-size: 1.5rem;
-        padding: 8px 15px;
-        margin-bottom: 20px;
-        border-width: 3px;
-        letter-spacing: 2px;
-    }
-    
-    .textbox {
-        height: 200px !important;
-        padding: 10px;
-    }
-    
-    #questionInput {
-        width: 85%;
-        height: 25px;
-        font-size: 0.8rem;
-        padding: 0 10px;
-    }
-    
-    #questionInput::placeholder {
-        font-size: 1.1rem;
-    }
-    
-    #seta {
-        width: 35px;
-    }
-
-    .form-container {
-        margin-bottom: 5%;
-    }
-
-    .btn-submit {
-        margin-bottom: 100%;
+        position: absolute;
+        left: 48% !important;
     }
 
     #question-title-1 {
-        font-size: 1.8rem;
+        font-size: 4rem;
     }
 
     #question-title-2 {
-        font-size: 2rem;
+        font-size: 5rem;
     }
-    
+
+    .start-content > div:first-child h1 {
+        padding: 10px 0;
+    }
+
+    .start-content > div:nth-child(2) h1 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
 }
 
-@media (max-height: 600px) and (orientation: landscape) {
-    .textbox-container {
-        padding-top: 20px;
-    }
-    
-    .question-top {
-        font-size: 1.8rem;
-        padding: 8px 15px;
-        margin-bottom: 15px;
-    }
-    
+@media (width >= 2560px) {
     .textbox {
-        height: 180px !important;
-        max-width: 600px;
-        margin-top: 10px;
+        max-width: 1280px !important;
+        background: url("assets/imgs/txt_box2.png") no-repeat center !important;
+        margin: 10%;
+        transform: scale(2);
+    }
+
+    .textbox-container {
+        margin-top: 15% !important;
+    }
+
+    #question-title-1 {
+        font-size: 7rem !important;
+    }
+
+    #question-title-2 {
+        font-size: 9.5rem !important;
+    }
+
+    .start-content {
+        width: 1000px;
+    }
+
+    .start-content > div:first-child h1 {
+        font-size: 4.5rem;
+        padding: 10px 0;
+    }
+
+    .start-content > div:nth-child(2) h1 {
+        font-size: 10rem;
+        padding-bottom: 20px !important;
     }
     
-    #questionInput {
-        height: 45px;
-        font-size: 1.4rem;
+    .btn-start {
+        padding: 35px 60px;
+        font-size: 3.3rem;
     }
 }
